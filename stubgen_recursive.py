@@ -28,10 +28,11 @@ sys.argv[1:] = args
 
 mypy.stubgen.main()
 
+replace_files = False
 # copy files
 for root, dirs, files in os.walk(os.path.join("out", package_name)):
     for file in files:
         path_file = os.path.join(root, file)
         _, file_path = path_file.split(os.sep, 1)
-        if not os.path.isfile(file_path):
+        if replace_files or not os.path.isfile(file_path):
             shutil.copy2(path_file, file_path)
